@@ -1,0 +1,185 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ParkSmart SENAI | Painel do Vigia</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="brand">
+    <div class="senai-mark">SESI <strong>SENAI</strong></div>
+    <div class="brand-caption">
+      Centro Universitário SENAI<br>Santa Catarina
+    </div>
+  </div>
+
+  <div class="product-title">
+    <div class="car-icon">🚘</div>
+    <div>
+      <h1>ParkSmart <span>SENAI</span></h1>
+      <p>Monitoramento de Vagas — Período Noturno</p>
+    </div>
+  </div>
+
+  <div class="clock-area">
+    <span class="moon">☾</span>
+    <div>
+      <strong id="date"></strong>
+      <strong id="clock"></strong>
+      <small>Painel do Vigia</small>
+    </div>
+  </div>
+</header>
+
+<aside class="sidebar">
+  <nav>
+    <button class="nav-item active" data-view="inicio">
+      <span>⌂</span> Início
+    </button>
+    <button class="nav-item" data-view="mapa">
+      <span>⌖</span> Mapa dos Blocos
+    </button>
+    <button class="nav-item" data-view="historico">
+      <span>◷</span> Histórico
+    </button>
+    <button class="nav-item" data-view="configuracoes">
+      <span>⚙</span> Configurações
+    </button>
+  </nav>
+
+  <div class="connection-card">
+    <div class="online">
+      <span class="pulse"></span>
+      <strong>Modo demonstração</strong>
+    </div>
+    <small>Última atualização:</small>
+    <p id="last-update"></p>
+    <small class="note">Os dados são simulados até a conexão dos sensores.</small>
+  </div>
+</aside>
+
+<main class="main-content">
+
+  <section class="view active" id="view-inicio">
+    <div class="summary-grid" id="summary-grid"></div>
+
+    <div class="section-heading">
+      <div>
+        <h2>Monitoramento por vaga</h2>
+        <p>Selecione uma vaga para consultar o estado do sensor.</p>
+      </div>
+
+      <div class="toolbar">
+        <label for="block-filter">Bloco</label>
+        <select id="block-filter">
+          <option value="todos">Todos</option>
+          <option value="A">Bloco A</option>
+          <option value="C">Bloco C</option>
+          <option value="H">Bloco H</option>
+        </select>
+        <button id="demo-toggle" class="primary-button">
+          Simular alteração
+        </button>
+      </div>
+    </div>
+
+    <div id="parking-sections" class="parking-sections"></div>
+
+    <div class="legend">
+      <span><i class="legend-box free"></i> Vaga livre</span>
+      <span><i class="legend-box occupied"></i> Vaga ocupada</span>
+      <span><i class="legend-box offline"></i> Sensor sem sinal</span>
+      <span class="legend-hint">ⓘ Clique em um número para ver detalhes.</span>
+    </div>
+  </section>
+
+  <section class="view" id="view-mapa">
+    <div class="page-title">
+      <h2>Mapa visual SENAI Blumenau</h2>
+      <p>Mapa de referência da unidade.</p>
+    </div>
+
+    <div class="map-card">
+      <img src="mapa-senai-blumenau.jpeg"
+           alt="Mapa visual SENAI Blumenau">
+    </div>
+
+    <div class="map-blocks">
+      <button data-map-block="A">
+        Bloco A — <span id="map-free-A">0</span> vagas livres
+      </button>
+      <button data-map-block="C">
+        Bloco C — <span id="map-free-C">0</span> vagas livres
+      </button>
+      <button data-map-block="H">
+        Bloco H — <span id="map-free-H">0</span> vagas livres
+      </button>
+    </div>
+  </section>
+
+  <section class="view" id="view-historico">
+    <div class="page-title">
+      <h2>Histórico de alterações</h2>
+      <p>Eventos registrados durante a demonstração.</p>
+    </div>
+
+    <div class="history-card">
+      <table>
+        <thead>
+          <tr>
+            <th>Horário</th>
+            <th>Bloco</th>
+            <th>Vaga</th>
+            <th>Estado</th>
+            <th>Origem</th>
+          </tr>
+        </thead>
+        <tbody id="history-body"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="view" id="view-configuracoes">
+    <div class="page-title">
+      <h2>Configurações</h2>
+      <p>Preferências do painel do vigia.</p>
+    </div>
+
+    <div class="settings-card">
+      <label for="refresh-rate">Atualização visual</label>
+      <select id="refresh-rate">
+        <option value="5">A cada 5 segundos</option>
+        <option value="10">A cada 10 segundos</option>
+        <option value="30">A cada 30 segundos</option>
+      </select>
+
+      <p>
+        A leitura real das vagas dependerá da integração
+        com os sensores instalados no estacionamento.
+      </p>
+
+      <button id="reset-demo" class="primary-button">
+        Restaurar demonstração
+      </button>
+    </div>
+  </section>
+
+</main>
+
+<dialog id="spot-dialog">
+  <form method="dialog" class="dialog-close">
+    <button aria-label="Fechar">×</button>
+  </form>
+  <div id="spot-details"></div>
+  <button id="toggle-spot" class="primary-button">
+    Alterar estado
+  </button>
+</dialog>
+
+<script src="script.js"></script>
+</body>
+</html>
